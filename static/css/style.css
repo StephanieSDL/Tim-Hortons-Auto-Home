@@ -1,0 +1,98 @@
+﻿/* Style for the login page */
+.login-page {
+    background-color: #f8f9fa;
+}
+
+    .login-page h2 {
+        margin-top: 50px;
+        color: #343a40;
+    }
+
+#login-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+#login-error {
+    font-size: 14px;
+}
+
+/* General styles */
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+h2, h3, h4 {
+    color: #343a40;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+/* Device styles */
+.device {
+    border: 1px solid #ced4da;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.device-on {
+    background-color: #e2f7e2;
+}
+
+.device-off {
+    background-color: #f7e2e2;
+}
+
+.device h4 {
+    margin-top: 0;
+}
+
+.device-status {
+    font-weight: bold;
+}
+
+/* Security status */
+#security-status-text {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Location animation */
+#animation-container {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    margin-top: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+#user-icon, #home-icon {
+    position: absolute;
+    top: 15px;
+    font-size: 24px;
+}
+
+#user-icon {
+    left: 0;
+    transition: left 1s;
+}
+
+#home-icon {
+    right: 0;
+}
+
+/* Command section */
+#command-section {
+    margin-top: 30px;
+}
+
+#ai-response {
+    font-weight: bold;
+    margin-top: 10px;
+}

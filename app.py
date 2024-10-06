@@ -1,16 +1,17 @@
-from flask import Flask, render_template, redirect, url_for, session
+from flask import Flask, render_template, redirect, url_for, session, send_from_directory
 from database import db
 from auth import auth_bp
 from location import location_bp
 from devices import devices_bp
 from flask_socketio import SocketIO
 from openai_integration import openai_bp
+from socketio_setup import socketio
 
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure secret key
 
-socketio = SocketIO(app)
+socketio.init_app(app)
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -46,6 +47,10 @@ def dashboard():
 def home_view_page():
     return render_template('home_view.html')
 
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory(app.static_folder, filename)
+
 @app.route('/logout', methods=['GET'])
 def logout_page():
     session.pop('user_id', None)
@@ -54,4 +59,4 @@ def logout_page():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    socketio.run(app, host='0.0.0.0', port=5002, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5001, debug=True)

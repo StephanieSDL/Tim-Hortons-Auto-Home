@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_view.css') }}">
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+</head>
+<body>
+    <button id="gowork">Go to Work</button>
+    <div id="distance-display">0m</div>
+    <div id="container">
+        <div class="room living-room">
+            <img id="home-image" src='/static/assets/render_1111111.png' alt="Home View">
+            <img id="bot-image" src='/static/assets/render_1111111.png'>
+        </div>
+    </div>
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Home View JavaScript -->
+    <script src="{{ url_for('static', filename='js/home_view.js') }}"></script>
+</body>
+</html>

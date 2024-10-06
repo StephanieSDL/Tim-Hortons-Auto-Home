@@ -1,0 +1,72 @@
+﻿/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+#container {
+    position: relative;
+    width: 100vw; /* Adjust as needed */
+    height: 100vh;
+    overflow: hidden; /* Crop the excess width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#home-image, #bot-image {
+    position: absolute;
+    width: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the container */
+    height: 100vh; /* Full viewport height */
+    transform: translate(-50%,-50%);
+}
+
+#home-image {
+    z-index: 2; /* Top image */
+}
+
+#bot-image {
+    z-index: -9999; /* Bottom image */
+}
+
+#gowork {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999; /* Ensures the button is on top */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#gowork:hover {
+    background-color: #357AE8;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+#distance-display {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 36px; /* Large font size */
+    font-weight: bold;
+    color: white;
+    z-index: 10000; /* Ensure the distance floats on top of the image */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Add shadow to make text readable */
+}

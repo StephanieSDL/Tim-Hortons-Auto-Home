@@ -13,6 +13,52 @@
         simulateUserMovement(data.is_user_nearby);
     });
 
+    socket.on('answer_update', function(data) {
+        console.log("Received new answer from server:", data.data);
+        // Here, you can use the answer (data.data) in your logic
+        // updateAnswerOnPage(data.data);
+        console.log(data.data['status'])
+        console.log(data.data['category'])
+        let command = data.data['status'] === 'True' ? '1' : '0';
+        switch(data.data['category'].toLowerCase()) {
+            case 'tv':
+                var deviceId = 'tv';
+                break;
+            case 'bathroom light':
+                var deviceId = 'bathroom-light';
+                break;
+            case 'counter light':
+                var deviceId = 'counter-light';
+                break;
+            case 'desk light':
+                var deviceId = 'desk-light';
+                break;
+            case 'dishwasher':
+                var deviceId = 'dishwasher';
+                break;
+            case 'lock':
+                var deviceId = 'lock';
+                break;
+            case 'stove':
+                var deviceId = 'stove';
+                break;
+        };          
+
+        $.ajax({
+            url: '/device/' + deviceId + '/control',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ command }),
+            success: function (response) {
+                // The server will emit a status_update event
+                console.log('Device state updated:', deviceId, command);
+            },
+            error: function () {
+                console.log('Error updating device state.');
+            }
+        });
+    });
+
     socket.on('control_all_devices', function (data) {
         let command = data.state === 'on' ? '1' : '0';  // '1' for on, '0' for off
 
@@ -56,7 +102,7 @@
 
     // Handle device toggle buttons
     $('.device-card').click(function () {
-        console.log("toggle hit");
+        
         var deviceId = $(this).data('device-id');
         // isDeviceOn = !data(devices[deviceID]['status']);
         if (typeof deviceStates[deviceId] === 'undefined') {

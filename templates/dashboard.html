@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <!-- Socket.IO -->
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="container">
@@ -15,7 +16,7 @@
         <a href="/logout" class="btn btn-secondary float-right">Logout</a>
         <div class="clearfix"></div>
 
-        <!-- Devices Section -->
+        <!-- Devices Section
         <div id="device-controls" class="mt-4">
             <h3>Devices</h3>
             <div class="device" id="device-light_1">
@@ -28,22 +29,149 @@
                 <p>Status: <span class="device-status" id="status-thermostat">Unknown</span></p>
                 <button class="btn btn-secondary device-toggle" data-device-id="thermostat">Toggle</button>
             </div>
+        </div> -->
+
+        <!-- Devices Section -->
+        <h3>Living Room</h3>
+        <div class="device-card" id="toggle-device" data-device-id="tv">
+            <img src="{{url_for('static', filename='assets/tv.png')}}" alt="TV">
+            <div class="device-name">TV</div>
+            <p class="device-status" id="status-tv">Off</p>
         </div>
 
-        <!-- Security Status -->
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/floor_lamp.png')}}" alt="Floor Lamp">
+            <div class="device-name">Floor Lamp</div>
+            <p class="device-status">60%</p>
+        </div>
+        
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/living_room_light.png')}}" alt="Living Room Light">
+            <div class="device-name">Main Light</div>
+            <p class="device-status">49%</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/bar_lamp.png')}}" alt="Bar Lamp">
+            <div class="device-name">Bar Lamp</div>
+            <p class="device-status">72%</p>
+        </div>
+        
+        <h3>Bathroom</h3>
+        <div class="device-card" id="toggle-device" data-device-id="bathroom-light">
+            <img src="{{url_for('static', filename='assets/living_room_light.png')}}" alt="Bathroom Light">
+            <div class="device-name">Bathroom Light</div>
+            <p class="device-status" id="status-bathroom-light">Off</p>
+        </div>
+        
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/bath_tub.png')}}" alt="Bath Tub">
+            <div class="device-name">Bath Tub</div>
+            <p class="device-status">Off</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/fan.png')}}" alt="Fan">
+            <div class="device-name">Fan</div>
+            <p class="device-status">On</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/smart_mirror.png')}}" alt="Smart Mirror">
+            <div class="device-name">Smart Mirror</div>
+            <p class="device-status">Off</p>
+        </div>
+
+        <h3>Kitchen</h3>
+        <div class="device-card" id="toggle-device" data-device-id="counter-light">
+            <img src="{{url_for('static', filename='assets/living_room_light.png')}}" alt="Counter Light">
+            <div class="device-name">Counter Light</div>
+            <p class="device-status" id="status-counter-light">Off</p>
+        </div>
+        
+        <div class="device-card" id="toggle-device" data-device-id="dishwasher">
+            <img src="{{url_for('static', filename='assets/dishwasher.png')}}" alt="Dishwasher">
+            <div class="device-name">Dishwasher</div>
+            <p class="device-status" id="status-dishwasher">Off</p>
+        </div>
+
+        <div class="device-card" id="toggle-device" data-device-id="stove">
+            <img src="{{url_for('static', filename='assets/stove.png')}}" alt="Stove">
+            <div class="device-name">Stove</div>
+            <p class="device-status" id="stove">Off</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/living_room_light.png')}}" alt="Kitchen Light">
+            <div class="device-name">Kitchen Light</div>
+            <p class="device-status">80%</p>
+        </div>
+
+        <h3>BedRoom</h3>
+        <div class="device-card" id="toggle-device" data-device-id="desk-light">
+            <img src="{{url_for('static', filename='assets/floor_lamp.png')}}" alt="Desk Light">
+            <div class="device-name">Desk Light</div>
+            <p class="device-status" id="status-desk-light">Off</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/living_room_light.png')}}" alt="Bedroom Light">
+            <div class="device-name">Bedroom Light</div>
+            <p class="device-status">60%</p>
+        </div>
+        
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/night_light.png')}}" alt="Night Light">
+            <div class="device-name">Night Light</div>
+            <p class="device-status">10%</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/air_conditioner.png')}}" alt="Air Conditioner">
+            <div class="device-name">Air Conditioner</div>
+            <p class="device-status">24°C</p>
+        </div>
+
+        <h3>Security</h3>
+        <div class="device-card" id="toggle-device" data-device-id="lock">
+            <img src="{{url_for('static', filename='assets/lock.png')}}" alt="Lock">
+            <div class="device-name">Lock</div>
+            <p class="device-status" id="status-lock">Off</p>
+        </div>
+        
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/camera.png')}}" alt="Camera 1">
+            <div class="device-name">Camera 1</div>
+            <p class="device-status">On</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/camera.png')}}" alt="Camera 2">
+            <div class="device-name">Camera 2</div>
+            <p class="device-status">Off</p>
+        </div>
+
+        <div class="device-card">
+            <img src="{{url_for('static', filename='assets/doorbell.png')}}" alt="Doorbell">
+            <div class="device-name">Doorbell</div>
+            <p class="device-status">On</p>
+        </div>
+
+
+        <!-- Security Status 
         <div id="security-status" class="mt-5">
             <h3>Security System</h3>
             <p>Status: <span id="security-status-text">Unknown</span></p>
-        </div>
+        </div> -->
 
-        <!-- Location Animation -->
+        <!-- Location Animation 
         <div id="location-animation" class="mt-5">
             <h3>User Location Simulation</h3>
             <div id="animation-container">
                 <div id="user-icon">🚶</div>
                 <div id="home-icon">🏠</div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Natural Language Command Section -->
         <div id="command-section" class="mt-5">

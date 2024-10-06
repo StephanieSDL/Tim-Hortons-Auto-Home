@@ -1,11 +1,11 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function() {
     let deviceStates = {};
     let isDeviceOn = false;
     // Connect to Socket.IO
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
     // Receive status updates from the server
-    socket.on('status_update', function (data) {
+    socket.on('status_update', function(data) {
         console.log("syn_3");
         updateDeviceStatuses(data.devices);
         // Assuming security status and proximity data are included\
@@ -36,12 +36,13 @@
     // };
 
     // Handle device toggle buttons
-    $('.device-card').click(function () {
+    $('.device-card').click(function() {
         console.log("toggle hit");
         var deviceId = $(this).data('device-id');
         // isDeviceOn = !data(devices[deviceID]['status']);
         if (typeof deviceStates[deviceId] === 'undefined') {
             deviceStates[deviceId] = false; // Default is off
+            console.log(deviceStates);
         }
         // isDeviceOn = !isDeviceOn;
         deviceStates[deviceId] = !deviceStates[deviceId];
@@ -62,19 +63,19 @@
             url: '/device/' + deviceId + '/control',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ command: isDeviceOn ? '1' : '0'}),
-            success: function (response) {
+            data: JSON.stringify({ command: isDeviceOn ? '1' : '0' }),
+            success: function(response) {
                 // The server will emit a status_update event
                 console.log('Device state updated:', deviceId, isDeviceOn ? '1' : '0');
             },
-            error: function () {
+            error: function() {
                 console.log('Error updating device state.');
             }
         });
     });
 
     // Handle natural language command submission
-    $('#send-command').click(function () {
+    $('#send-command').click(function() {
         const commandText = $('#nl-command').val();
         $('#ai-response').text('Processing...');
         $.ajax({
@@ -82,14 +83,14 @@
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ command: commandText }),
-            success: function (response) {
+            success: function(response) {
                 if (response.status === 'success') {
                     $('#ai-response').text('Executed: ' + response.action.device + ' - ' + response.action.action);
                 } else {
                     $('#ai-response').text('Error: ' + response.message);
                 }
             },
-            error: function () {
+            error: function() {
                 $('#ai-response').text('Failed to process the command.');
             }
         });

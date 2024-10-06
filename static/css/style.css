@@ -19,6 +19,17 @@
     font-size: 14px;
 }
 
+#register-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    /* Ensures form doesn’t get too wide on larger screens */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional: adds a subtle shadow */
+}
+
 
 /* General styles */
 
@@ -162,6 +173,16 @@ h4 {
 #ai-response {
     font-weight: bold;
     margin-top: 10px;
+}
+
+button[type="submit"] {
+    background-color: #da291c;
+    border: none;
+    color: white;
+    /* Optional: to make the text color white */
+    padding: 10px;
+    border-radius: 5px;
+    /* Optional: to give rounded corners */
 }
 
 @media (max-width: 768px) {

@@ -20,5 +20,5 @@ data = {
 response = requests.post(url, headers=headers, json=data)
 
 # Print the response
-print("Status Code:", response.status_code)
-print("Response Body:", response.json())
+# print("Status Code:", response.status_code)
+# print("Response Body:", response.json())

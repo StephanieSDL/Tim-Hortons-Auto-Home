@@ -29,7 +29,52 @@ h2, h3, h4 {
 }
 
 .container {
-    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Style for individual device cards */
+.device-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 45%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Status styling */
+.device-card p {
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.device-card img {
+    height: 40px;
+    width: 40px;
+
+}
+
+/* Icons and labels */
+.device-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.device-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.device-status {
+    font-size: 1em;
+    color: #666;
 }
 
 /* Device styles */
@@ -96,3 +141,24 @@ h2, h3, h4 {
     font-weight: bold;
     margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        margin-top: 15px;
+        padding: 10px;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .device {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    #command-section {
+        margin-top: 20px;
+    }
+}
+

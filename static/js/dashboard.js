@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    let deviceStates = {};
+    let isDeviceOn = false;
     // Connect to Socket.IO
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -10,27 +12,60 @@
         simulateUserMovement(data.is_user_nearby);
     });
 
-    // Fetch initial device statuses
-    $.ajax({
-        url: '/devices',
-        type: 'GET',
-        success: function (response) {
-            if (response.status === 'success') {
-                updateDeviceStatuses(response.devices);
-            }
-        }
-    });
+    // // Fetch initial device statuses
+    // $.ajax({
+    //     url: '/devices',
+    //     type: 'GET',
+    //     success: function (response) {
+    //         if (response.status === 'success') {
+    //             updateDeviceStatuses(response.devices);
+    //         }
+    //     }
+    // });
+
+    // var devices = {
+    //     'bathroom-light': {'status': '0'},
+    //     'counter-light': {'status': '0'},
+    //     'desk-light': {'status':'0'},
+    //     'dishwasher': {'status':'0'},
+    //     'lock': {'status':'0'},
+    //     'stove': {'status':'0'},
+    //     'tv': {'status': '0'}
+    // };
 
     // Handle device toggle buttons
-    $('.device-toggle').click(function () {
-        const deviceId = $(this).data('device-id');
+    $('.device-card').click(function () {
+        console.log("toggle hit");
+        var deviceId = $(this).data('device-id');
+        // isDeviceOn = !data(devices[deviceID]['status']);
+        if (typeof deviceStates[deviceId] === 'undefined') {
+            deviceStates[deviceId] = false; // Default is off
+        }
+        // isDeviceOn = !isDeviceOn;
+        deviceStates[deviceId] = !deviceStates[deviceId];
+        let isDeviceOn = deviceStates[deviceId];
+
+        // Update UI with new state
+        if (isDeviceOn) {
+            $('#status-' + deviceId).text('On');
+            $(this).addClass('device-on').removeClass('device-off');
+            // devices[deviceID]['status'] = '1';
+        } else {
+            $('#status-' + deviceId).text('Off');
+            $(this).addClass('device-off').removeClass('device-on');
+            // devices[deviceID]['status'] = '0';
+        }
         $.ajax({
             url: '/device/' + deviceId + '/control',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ command: 'toggle' }),
+            data: JSON.stringify({ command: isDeviceOn ? '1' : '0'}),
             success: function (response) {
                 // The server will emit a status_update event
+                console.log('Device state updated:', deviceId, isDeviceOn ? '1' : '0');
+            },
+            error: function () {
+                console.log('Error updating device state.');
             }
         });
     });

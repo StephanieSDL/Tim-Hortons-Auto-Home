@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request, session
 from flask_socketio import emit
 from socketio_setup import socketio
+import requests
+import apidata
 
 devices_bp = Blueprint('devices_bp', __name__)
 
@@ -35,6 +37,12 @@ def list_devices():
 #         return jsonify(result), 400
 
 def control_device_logic(device_id, command):
+    response_NV = requests.post(apidata.url_NV, headers=apidata.headers, json=apidata.data)
+    response_SS = requests.post(apidata.url_SS, headers=apidata.headers, json=apidata.data)
+    response_LV = requests.post(apidata.url_LV, headers=apidata.headers, json=apidata.data_LV)
+    print("Status Code:", response_NV.status_code, "| DevicePhoneNumberVerified:", response_NV.json()['devicePhoneNumberVerified'])
+    print("Status Code:", response_SS.status_code, "| Swapped:", response_SS.json()['swapped'])
+    print("Status Code:", response_LV.status_code, "| LocationVerified:", response_LV.json()['verificationResult'])
     if device_id not in devices:
         return {'status': 'fail', 'message': 'Device not found'}
     # Simple command processing

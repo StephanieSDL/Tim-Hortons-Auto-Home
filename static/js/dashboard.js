@@ -1,11 +1,11 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function() {
     let deviceStates = {};
     let isDeviceOn = false;
     // Connect to Socket.IO
     var socket = io.connect();
 
     // Receive status updates from the server
-    socket.on('status_update', function (data) {
+    socket.on('status_update', function(data) {
         console.log('syn_3');
         updateDeviceStatuses(data.devices);
         // Assuming security status and proximity data are included
@@ -13,8 +13,8 @@
         simulateUserMovement(data.is_user_nearby);
     });
 
-    socket.on('control_all_devices', function (data) {
-        let command = data.state === 'on' ? '1' : '0';  // '1' for on, '0' for off
+    socket.on('control_all_devices', function(data) {
+        let command = data.state === 'on' ? '1' : '0'; // '1' for on, '0' for off
 
         // Send AJAX requests to control each device
         deviceOrder.forEach(deviceId => {
@@ -23,26 +23,26 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ command: command }),
-                success: function (response) {
+                success: function(response) {
                     console.log('Device', deviceId, 'turned', data.state);
                 },
-                error: function () {
+                error: function() {
                     console.error('Error controlling device:', deviceId);
                 }
             });
         });
     });
 
-     // Fetch initial device statuses
-     $.ajax({
-         url: '/devices',
-         type: 'GET',
-         success: function (response) {
-             if (response.status === 'success') {
-                 updateDeviceStatuses(response.devices);
-             }
-         }
-     });
+    // Fetch initial device statuses
+    $.ajax({
+        url: '/devices',
+        type: 'GET',
+        success: function(response) {
+            if (response.status === 'success') {
+                updateDeviceStatuses(response.devices);
+            }
+        }
+    });
 
     // var devices = {
     //     'bathroom-light': {'status': '0'},
@@ -55,7 +55,7 @@
     // };
 
     // Handle device toggle buttons
-    $('.device-card').click(function () {
+    $('.device-card').click(function() {
         console.log("toggle hit");
         var deviceId = $(this).data('device-id');
         // isDeviceOn = !data(devices[deviceID]['status']);
@@ -69,30 +69,31 @@
         // Update UI with new state
         if (isDeviceOn) {
             $('#status-' + deviceId).text('On');
-            $(this).addClass('device-on').removeClass('device-off');
+            $(this).addClass('device-on');
+            // $(this).addClass('device-on').removeClass('device-off');
             // devices[deviceID]['status'] = '1';
         } else {
             $('#status-' + deviceId).text('Off');
-            $(this).addClass('device-off').removeClass('device-on');
+            $(this).removeClass('device-on');
             // devices[deviceID]['status'] = '0';
         }
         $.ajax({
             url: '/device/' + deviceId + '/control',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ command: isDeviceOn ? '1' : '0'}),
-            success: function (response) {
+            data: JSON.stringify({ command: isDeviceOn ? '1' : '0' }),
+            success: function(response) {
                 // The server will emit a status_update event
                 console.log('Device state updated:', deviceId, isDeviceOn ? '1' : '0');
             },
-            error: function () {
+            error: function() {
                 console.log('Error updating device state.');
             }
         });
     });
 
     // Handle natural language command submission
-    $('#send-command').click(function () {
+    $('#send-command').click(function() {
         const commandText = $('#nl-command').val();
         $('#ai-response').text('Processing...');
         $.ajax({
@@ -100,14 +101,14 @@
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ command: commandText }),
-            success: function (response) {
+            success: function(response) {
                 if (response.status === 'success') {
                     $('#ai-response').text('Executed: ' + response.action.device + ' - ' + response.action.action);
                 } else {
                     $('#ai-response').text('Error: ' + response.message);
                 }
             },
-            error: function () {
+            error: function() {
                 $('#ai-response').text('Failed to process the command.');
             }
         });
@@ -155,10 +156,11 @@
             const status = devices[deviceId].status;
             // Update device appearance
             if (status === '1') {
-                $('#device-' + deviceId).addClass('device-on').removeClass('device-off');
+                // $('#device-' + deviceId).addClass('device-on').removeClass('device-off');
+                $('#device-' + deviceId).addClass('device-on');
                 $('#status-' + deviceId).text('On');
             } else if (status == '0') {
-                $('#device-' + deviceId).addClass('device-off').removeClass('device-on');
+                $('#device-' + deviceId).removeClass('device-on');
                 $('#status-' + deviceId).text('Off');
             }
         }

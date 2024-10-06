@@ -42,6 +42,10 @@ def dashboard():
         return redirect(url_for('login_page'))
     return render_template('dashboard.html')
 
+@app.route('/home_view', methods=['GET'])
+def home_view_page():
+    return render_template('home_view.html')
+
 @app.route('/logout', methods=['GET'])
 def logout_page():
     session.pop('user_id', None)
@@ -50,4 +54,4 @@ def logout_page():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    socketio.run(app, host='0.0.0.0', port=5001, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5002, debug=True)

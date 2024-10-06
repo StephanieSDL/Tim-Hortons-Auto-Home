@@ -1,0 +1,39 @@
+﻿/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+#container {
+    position: relative;
+    width: 800px; /* Adjust as needed */
+    margin: 50px auto;
+    text-align: center;
+}
+
+.room img {
+    height: 100vh;
+    margin: 0;
+}
+
+#gowork {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999; /* Ensures the button is on top */
+}
+
+#gowork:hover {
+    background-color: #357AE8;
+}
+
+.fade-out {
+    opacity: 0;
+}

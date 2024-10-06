@@ -6,8 +6,10 @@
 
     // Receive status updates from the server
     socket.on('status_update', function (data) {
+        console.log("syn_3");
         updateDeviceStatuses(data.devices);
-        // Assuming security status and proximity data are included
+        // Assuming security status and proximity data are included\
+        console.log("syn_3");
         updateSecurityStatus(data.security_status);
         simulateUserMovement(data.is_user_nearby);
     });
@@ -50,6 +52,7 @@
             $('#status-' + deviceId).text('On');
             $(this).addClass('device-on').removeClass('device-off');
             // devices[deviceID]['status'] = '1';
+            console.log('Device state list:', deviceStates);
         } else {
             $('#status-' + deviceId).text('Off');
             $(this).addClass('device-off').removeClass('device-on');

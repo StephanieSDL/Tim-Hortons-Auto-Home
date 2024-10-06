@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify, session
 from models import User
 from database import db
+import apidata
+import requests
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -24,6 +26,12 @@ def login():
     password = data.get('password')
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):
+        response_NV = requests.post(apidata.url_NV, headers=apidata.headers, json=apidata.data)
+        response_SS = requests.post(apidata.url_SS, headers=apidata.headers, json=apidata.data)
+        response_LV = requests.post(apidata.url_LV, headers=apidata.headers, json=apidata.data_LV)
+        print("Status Code:", response_NV.status_code, "| DevicePhoneNumberVerified:", response_NV.json()['devicePhoneNumberVerified'])
+        print("Status Code:", response_SS.status_code, "| Swapped:", response_SS.json()['swapped'])
+        print("Status Code:", response_LV.status_code, "| LocationVerified:", response_LV.json()['verificationResult'])
         session['user_id'] = user.id
         return jsonify({'status': 'success', 'message': 'Logged in successfully'})
     else:

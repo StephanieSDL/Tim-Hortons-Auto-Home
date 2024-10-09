@@ -97,12 +97,12 @@ def control_device_logic(device_id, command):
     else:
         return {'status': 'fail', 'message': 'Invalid command'}
     # Broadcast updated device status
-    response_NV = requests.post(apidata.url_NV, headers=apidata.headers, json=apidata.data)
-    response_SS = requests.post(apidata.url_SS, headers=apidata.headers, json=apidata.data)
-    response_LV = requests.post(apidata.url_LV, headers=apidata.headers, json=apidata.data_LV)
-    print("Status Code:", response_NV.status_code, "| DevicePhoneNumberVerified:", response_NV.json()['devicePhoneNumberVerified'])
-    print("Status Code:", response_SS.status_code, "| Swapped:", response_SS.json()['swapped'])
-    print("Status Code:", response_LV.status_code, "| LocationVerified:", response_LV.json()['verificationResult'])
+    #response_NV = requests.post(apidata.url_NV, headers=apidata.headers, json=apidata.data)
+    #response_SS = requests.post(apidata.url_SS, headers=apidata.headers, json=apidata.data)
+    #response_LV = requests.post(apidata.url_LV, headers=apidata.headers, json=apidata.data_LV)
+    #print("Status Code:", response_NV.status_code, "| DevicePhoneNumberVerified:", response_NV.json()['devicePhoneNumberVerified'])
+    #print("Status Code:", response_SS.status_code, "| Swapped:", response_SS.json()['swapped'])
+    #print("Status Code:", response_LV.status_code, "| LocationVerified:", response_LV.json()['verificationResult'])
     socketio.emit('status_update', {'device_id': device_id, 'device': devices[device_id]})
     return {'status': 'success', 'device': device_id, 'new_status': devices[device_id]}
 
